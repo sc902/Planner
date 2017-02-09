@@ -50,7 +50,5 @@ while (True):
     else:
         print "I don't know."
 
-    #Expand selection
-    #finish rawinput
-    #make function for each
+# HW: Work on MAGIC Presentation- hopefully finish
 
