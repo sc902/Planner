@@ -2,31 +2,62 @@
 to_do_list = []
 completed = []
 
-def print_tasks():
-    print to_do_list
+from datetime import datetime
 
-def add_task():
-    task = raw_input("What is your task?")
-    to_do_list.append(task)
+class Task(object):
+    def __init__(self, description, completed, subject, date):
+        self.completed = completed
+        self.description = description
+        self.subject = subject
+        self.date = date
+    now = datetime.now()
+    def is_due(self):
+        pass
 
-def print_enumerated_tasks():
-    for i, task in enumerate(to_do_list):
-        print i, task
+    def task_summary(self):
+        print self.description
+        print self.subject
+        print
+    synopsis = Task("Read chapters 12-17 ")
+    print synopsis.description
+    print '%s/%s/%s' % ( now.month, now.day, now.year,)
+    #is it due now?
+#implement print method for task
+#Description of to-do
+#Date
+#Is completed
+#Subject it belongs to
+    def print_tasks():
+        print to_do_list
+    mylist = Task("Walk Leo, Return book, Get groceries, Write card. ")
+    print mylist
+    print '%s/%s/%s' % (now.month, now.year,)
 
-def complete_task():
-    print_enumerated_tasks()
-    task_index = int(raw_input("To complete a task, type the number of that task. "))
-    task = to_do_list.pop(task_index)
-    completed.append(task)
+    def add_task():
+        task = raw_input("What is your task? ")
+        to_do_list.append(task)
+    task = Task("Math HW ")
+    print task
+    print '%s/%s/%s' % (now.month, now.day, now.year,)
 
-def view_completed():
-    print completed
+    def print_enumerated_tasks(self):
+        for i, task in enumerate(to_do_list):
+            print i, task
 
+    def complete_task():
+        print_enumerated_tasks()
+        task_index = int(raw_input("To complete a task, type the number of that task. "))
+        task = to_do_list.pop(task_index)
+        completed.append(task)
 
-def remove_task():
-    print_enumerated_tasks()
-    task_index = int(raw_input("To remove a task, type the number of that task. "))
-    to_do_list.pop(task_index)
+    def view_completed():
+        print completed
+
+    def remove_task():
+        print_enumerated_tasks()
+        task_index = int(raw_input("To remove a task, type the number of that task. "))
+        to_do_list.pop(task_index)
+
 
 
 while (True):
@@ -59,8 +90,12 @@ while (True):
         break
     else:
         print "I don't know."
+#HW:
+    # Datetime lesson
+    #Import datetime into project
+    #Create instances of task
+    #print method
 
-#HW: Go through other requirements
 
 
 
