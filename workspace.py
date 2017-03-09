@@ -7,12 +7,13 @@ y.remove(2)
 print y
 print len(y)
 
-task1 = {"action":"Walk Leo", "due date": "Dec. 7", "time": "7 PM"}
-print task1
+#task1 = {"action":"Walk Leo", "due date": "Dec. 7", "time": "7 PM"}
+#print task1
 
 def make_task(action_value, due_date_value, time_value):
     return{"action": action_value, "due_date":due_date_value,"time":time_value}
 print make_task("Walk Leo","Dec.7","7:00pm")
+print make_task("Read","Dec.7","7:00pm")
 
 print "hello!" \
 
@@ -122,9 +123,6 @@ while index < len(mylist):
 
 for var in mylist:
     print var
-
-#HW: Repetition, selection & list methods
-
 myfloat=1.2
 
 while myfloat > 0:
@@ -185,3 +183,80 @@ class Equilateral(Triangle):
 my_triangle = Triangle(90, 30, 60)
 print my_triangle.number_of_sides
 print my_triangle.check_angles()
+
+
+
+
+
+
+
+
+my_list = [3,4,2,7]
+print my_list
+my_list= sorted(my_list)
+print(my_list)
+from datetime import date
+class MyClass(object):
+    def __init__(self, name, val1, val2):
+        self.name = name
+        self.val1 = val1
+        self.val2 = val2
+
+    def __str__(self):
+        return str(self.name) +": " + str(self.val1) + ", " + str(self.val2)
+
+my_list = [MyClass("item 1", 3, 12), MyClass("item 2", 6, 3), MyClass("item 3", 2, 5)]
+print my_list
+print "\nunsorted"
+print "name, val1, val2"
+for mc in my_list:
+    print mc
+print "\nsorted on val1"
+print "name, val1, val2"
+my_list_val1_sort = sorted(my_list, key= lambda myClassElement : myClassElement.val1)
+for mc in my_list_val1_sort:
+    print mc
+print "\nsorted on val2"
+print "name, val1, val2"
+my_list_val2_sort = sorted(my_list, key= lambda myClassElement : myClassElement.val2)
+for mc in my_list_val2_sort:
+    print mc
+
+
+
+
+class TaskList(object):
+    def __init__(self, subject, task, date):
+        self.not_done = []
+        self.done = []
+        self.subject = subject
+        self.task = task
+        self.date = date
+    def add_task(self, new_task):
+        self.not_done.append(new_task)
+    def remove_task(self, index):
+        removed_task = self.not_done.pop(index)
+    def complete_task(self, index):
+        completed_task = self.not_done[index]
+        complete_task.completed = True
+        self.not_done.pop(index)
+        self.done.append(self.not_done.pop(index))
+    def __str__(self):
+            return str(self.subject) + ": " + str(self.task) + ", " + str(self.date)
+subjects = [TaskList("English", "Annotate chapter 13", date.today()), TaskList("Math", "Practice problems", date.today()), TaskList("French", "CVG page 20", date.today())]
+print
+print "\nunsorted"
+print "subject,      task,            date"
+subjects_task_sort = sorted(subjects, key= lambda TaskListElement: TaskListElement.task)
+for tl in subjects_task_sort:
+    print tl
+print "\nsorted on task"
+print "subject, task, date"
+subjects_date_sort = sorted(subjects, key= lambda TaskListElement : TaskListElement.date)
+for tl in subjects_task_sort:
+    print tl
+
+
+
+
+
