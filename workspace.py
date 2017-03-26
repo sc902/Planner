@@ -258,5 +258,13 @@ for tl in subjects_task_sort:
 
 
 
+grocery_list = TaskList()
+grocery_list.add_task(Task("orange", False, "food", date(2018, 3, 10)))
+grocery_list.add_task(Task("Lettuce", False, "vegetables", date(2017, 3, 6)))
+grocery_list.add_task(Task("bread", True, "carbs", date(2017, 2, 27)))
+grocery_list.add_task(Task("juice", True, "drinks", date(2018, 3, 10)))
+
+
+
 
 

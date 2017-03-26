@@ -1,30 +1,32 @@
-#Assign list
-to_do_list = []
-completed = []
-
 from datetime import date
+
 #^^This imports date from the datetime library
 class Task(object):
     """ Holds methods for setting a due date, assigning a subject and synopsis of your task"""
     def __init__(self, description, completed, subject, date):
-        """__init__ initializes things so that they can be used in dot notation"""
+        """__init__ initializes things so that they can be used in dot notation
+                param: self, description (description for task, str), completed (if task has been completed, bool), subject (suject of task, str)and date(date for task, date)
+        :return: none """
         self.completed = completed
         self.description = description
         self.subject = subject
         self.date = date
     def is_due(self):
-        """This method makes it so that the user can set a due date for their task
+        """This method makes it so that the user if they still have time for their task
         param: none
-        :return: if your task is overdue or if you still have time."""
+        :return: if your task is overdue or if you still have time, bool."""
         return date.today() >= self.date
     def task_summary(self):
         """This method prints out a description and summary for your task.
         param: none
-        :return: summary and description of task"""
+        :return: none"""
         print self.description
         print self.subject
 
     def __str__(self):
+        """ formats task for printing
+        param: none
+        :return: formatted task (str)"""
         return str(self.subject) + ": " + str(self.task) + ", " + str(self.date)
 
 
@@ -40,28 +42,36 @@ class TaskList(object):
         :param new_task: (Task) a Task object to add to the list
         :return: None
         """
-        self.not_done.append(new_task)
+        if new_task.completed:
+            self.done.append(new_task)
+        else:
+            self.not_done.append(new_task)
 
 
     def remove_task(self, index):
         """removes tasks from a list
-        param: index
+        param: index(int)
         :return: None"""
-        removed_task = self.not_done.pop(index)
+        if index < len(self.not_done) and index >= 0:
+             self.not_done.pop(index)
+        else:
+            print "This is not a valid index- type the number of the task you want to remove."
 
     def complete_task(self, index):
         """completes a task
-        param: index
+        param: index(int)
         :return: None"""
-        completed_task = self.not_done[index]
-        complete_task.completed = True
-        self.not_done.pop(index)
-        self.done.append(self.not_done.pop(index))
+        if index < len(self.not_done) and index >= 0:
+            completed_task = self.not_done.pop(index)
+            completed_task.completed = True
+            self.done.append(completed_task)
+        else:
+            print "This is not a valid index. "
 
     def sort_tasks(self, sort_by):
         """Sorts tasks by subject or date
-        param: sort_by
-        :return: in some cases, 'this isn't supported!'"""
+        param: sort_by(str)
+        :return: none'"""
         if sort_by == "subject":
             #TODO: homework March 7
             pass
@@ -71,14 +81,16 @@ class TaskList(object):
         else:
             print "This isn't supported!"
 
-def print_tasks():
-    """prints out your task list
-    param: none
-    :return: prints out your to-do list including its due dates"""
-    print to_do_list
-    mylist = Task("Walk Leo, Return book, Get groceries, Write card. ")
-    print mylist
-    print '%s/%s/%s' % (now.month, now.year,)
+    def print_tasks(self):
+        print task_list
+
+def print_tasks(self):
+    print task_list
+#prints out your task list
+    #param: none
+    #return: prints out your to-do list including its due dates"""
+
+
 
 def add_task():
     """adds your task to your list
@@ -86,9 +98,7 @@ def add_task():
         :return: prints out yout task"""
     task = raw_input("What is your task? ")
     to_do_list.append(task)
-    task = Task("Math HW ")
-    print task
-    print '%s/%s/%s' % (now.month, now.day, now.year,)
+
 
 def print_enumerated_tasks():
     """enumerates your tasks and lets your user print
@@ -120,7 +130,9 @@ def remove_task():
     task_index = int(raw_input("To remove a task, type the number of that task. "))
     to_do_list.pop(task_index)
 
-
+# TODO: use the classes instead of the functions
+# hint: create a todo list outside of the while loop and then add to that using its methods
+task_list = TaskList()
 while (True):
     # casting the string input to an integer
     option = int(raw_input("Choose an option:\n"
@@ -132,13 +144,16 @@ while (True):
                            "6. Exit app\n"))
     # 1. Add a task
     if option == 1:
-        add_task()
+        task_description = raw_input("What is your task description?")
+        task = Task(task_description, False, "", date.today())
+        task_list.add_task(task)
     # 2. Print Tasks
     elif option == 2:
-        print_tasks()
+        task_list.print_tasks()
     #Remove a task
     elif option == 3:
-        remove_task()
+        bad_task = raw_input("To remove a task, type in the number of the task you want to remove.")
+    task_list.remove_task(index)
     #4. Complete a task
     elif option == 4:
         complete_task()
