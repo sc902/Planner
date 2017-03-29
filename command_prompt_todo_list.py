@@ -16,18 +16,14 @@ class Task(object):
         param: none
         :return: if your task is overdue or if you still have time, bool."""
         return date.today() >= self.date
-    def task_summary(self):
-        """This method prints out a description and summary for your task.
-        param: none
-        :return: none"""
-        print self.description
-        print self.subject
+    def get_task_summary(self):
+        return self.description + "," + str(self.completed) + "," + self.subject + "," str(self.date)
 
     def __str__(self):
         """ formats task for printing
         param: none
         :return: formatted task (str)"""
-        return str(self.subject) + ": " + str(self.task) + ", " + str(self.date)
+        return str(self.description)
 
 
 class TaskList(object):
@@ -82,15 +78,12 @@ class TaskList(object):
             print "This isn't supported!"
 
     def print_tasks(self):
-        print task_list
+        for i, task in enumerate(self.not_done):
+            print i, task
 
-def print_tasks(self):
-    print task_list
-#prints out your task list
-    #param: none
-    #return: prints out your to-do list including its due dates"""
-
-
+    def print_done_list(self):
+        for t in self.done:
+            print t
 
 def add_task():
     """adds your task to your list
@@ -100,39 +93,8 @@ def add_task():
     to_do_list.append(task)
 
 
-def print_enumerated_tasks():
-    """enumerates your tasks and lets your user print
-        param: none
-        :return: prints enumerated task"""
-    for i, task in enumerate(to_do_list):
-        print i, task
-
-def complete_task():
-    """Completes your task
-        param: none
-        :return: None"""
-    print_enumerated_tasks()
-    task_index = int(raw_input("To complete a task, type the number of that task. "))
-    task = to_do_list.pop(task_index)
-    completed.append(task)
-
-def view_completed():
-    """lets you view your completed tasks
-            param: none
-        :return: prints out your list with completed tasks"""
-    print completed
-
-def remove_task():
-    """removes a task from your to-do list
-        param: none
-        :return: none"""
-    print_enumerated_tasks()
-    task_index = int(raw_input("To remove a task, type the number of that task. "))
-    to_do_list.pop(task_index)
-
-# TODO: use the classes instead of the functions
-# hint: create a todo list outside of the while loop and then add to that using its methods
-task_list = TaskList()
+# instance of task list object
+my_task_list = TaskList()
 while (True):
     # casting the string input to an integer
     option = int(raw_input("Choose an option:\n"
@@ -146,22 +108,33 @@ while (True):
     if option == 1:
         task_description = raw_input("What is your task description?")
         task = Task(task_description, False, "", date.today())
-        task_list.add_task(task)
+        my_task_list.add_task(task)
     # 2. Print Tasks
     elif option == 2:
-        task_list.print_tasks()
+        my_task_list.print_tasks()
     #Remove a task
     elif option == 3:
-        bad_task = raw_input("To remove a task, type in the number of the task you want to remove.")
-    task_list.remove_task(index)
+        my_task_list.print_tasks()
+        bad_task = int(raw_input("To remove a task, type in the number of the task you want to remove."))
+        my_task_list.remove_task(bad_task)
     #4. Complete a task
     elif option == 4:
-        complete_task()
+        my_task_list.print_tasks()
+        completedtask = int(raw_input("To complete a task, type the number of the task you want to complete."))
+        my_task_list.complete_task(completedtask)
     #5: View completed tasks
     elif option == 5:
-        view_completed()
-    # 6. Exit
+        my_task_list.print_done_list()
+    # 6. Exit:
+    #Break exits the while loop
     elif option == 6:
+        f = open("~/PycharmProjects/Planner/tasks.txt", "w")
+        for t in my_task_list.not_done:
+            f.write(t.get_task_summary() + "\n")
+        for t in my_task_list.done:
+            f.write(t.get_task_summary() + "\n")
+        f.close()
+
         break
     else:
         print "I don't know."
@@ -173,6 +146,7 @@ while (True):
 #Codecademy Classes Lesson
 #Write comments for all methods + classes explaining what they do
 
+"""
 date_instance = date(2017, 1, 3)
 synopsis = Task("Read chapters 12-17 ", False, "Math", date_instance)
 print synopsis.description
@@ -203,3 +177,4 @@ print "subject, task, date"
 subjects_date_sort = sorted(subjects, key=lambda TaskListElement: TaskListElement.date)
 for tl in subjects_task_sort:
     print tl
+"""
