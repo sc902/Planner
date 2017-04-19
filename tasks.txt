@@ -1,0 +1,4 @@
+Read chapter 12,False,,2017-04-18
+study for french quiz,False,,2017-04-18
+Go to track practice,True,,2017-04-18
+Bake cookies,True,,2017-04-18

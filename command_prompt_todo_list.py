@@ -17,7 +17,11 @@ class Task(object):
         :return: if your task is overdue or if you still have time, bool."""
         return date.today() >= self.date
     def get_task_summary(self):
-        return self.description + "," + str(self.completed) + "," + self.subject + "," str(self.date)
+        """
+        Will format tasks for saving
+        :return: string, comma separated values (description, completed, subject and date)
+        """
+        return self.description + "," + str(self.completed) + "," + self.subject + "," + str(self.date)
 
     def __str__(self):
         """ formats task for printing
@@ -95,6 +99,22 @@ def add_task():
 
 # instance of task list object
 my_task_list = TaskList()
+
+f = open("tasks.txt", "r")
+for line in f:
+    #This is splitting my saved strings into variables that are compatible with my task list.
+    line_split = line.split(",")
+    description = line_split[0]
+    completed_str = line_split[1]
+    completed_task = True
+    if completed_str == "False":
+        completed_task = False
+    #This creates my instance of Task, and formats it correctly.
+    new_class_task = Task(description, completed_task, "", date.today())
+    #This adds my new instance of Task, new_class_task to my task list.
+    my_task_list.add_task(new_class_task)
+f.close()
+
 while (True):
     # casting the string input to an integer
     option = int(raw_input("Choose an option:\n"
@@ -103,7 +123,8 @@ while (True):
                            "3.Remove a task\n"
                            "4. Complete a task\n"
                            "5. View your completed tasks\n"
-                           "6. Exit app\n"))
+                           "6. Exit app and save\n"
+                           "7. Exit app. WILL NOT SAVE!!!\n"))
     # 1. Add a task
     if option == 1:
         task_description = raw_input("What is your task description?")
@@ -128,13 +149,14 @@ while (True):
     # 6. Exit:
     #Break exits the while loop
     elif option == 6:
-        f = open("~/PycharmProjects/Planner/tasks.txt", "w")
-        for t in my_task_list.not_done:
-            f.write(t.get_task_summary() + "\n")
-        for t in my_task_list.done:
-            f.write(t.get_task_summary() + "\n")
+        f = open("tasks.txt", "w")
+        for task in my_task_list.not_done:
+            f.write(task.get_task_summary() + "\n")
+        for task in my_task_list.done:
+            f.write(task.get_task_summary() + "\n")
         f.close()
-
+        break
+    elif option == 7:
         break
     else:
         print "I don't know."
@@ -168,7 +190,7 @@ grocery_list.add_task(Task("juice", True, "drinks", date(2018, 3, 10)))
 
 print subjects
 print "\nunsorted"
-print "subject,      task,            date"
+print "date,      task,            subject"
 subjects_task_sort = sorted(subjects, key=lambda TaskListElement: TaskListElement.task)
 for tl in subjects_task_sort:
     print tl
