@@ -5,11 +5,7 @@ from task_classes import Task, TaskList
 top = tk.Tk()
 my_task_list = TaskList()
 #DO NOT TOUCH ANYTHING ABOVE THIS
-var = tk.StringVar()
-label = tk.Label(top, textvariable=var, relief=tk.RAISED)
-
-var.set("To-Do List:")
-label.pack()
+top.title("To-Do List")
 #1. Iterate over not_done
 for task in my_task_list.not_done:
     var = tk.StringVar()
@@ -17,10 +13,8 @@ for task in my_task_list.not_done:
     #Printing description
     var.set(task.description)
     label.pack()
-
-for task in my_task_list.not_done:
-    w = tk.Checkbutton(tk.Tk(), tk.activeforeground)
-    w.place(x = 10, y = 10)
+    b = tk.Checkbutton(top)
+    b.pack()
 
 #1. Iterate over done
 for task in my_task_list.done:
