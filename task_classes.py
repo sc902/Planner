@@ -105,3 +105,9 @@ class TaskList(object):
         for t in self.done:
             print t
         print "\n"
+    def save_tasks(self):
+        f = open("tasks.txt", "w")
+        for task in TaskList().not_done:
+            f.write(task.get_task_summary() + "\n")
+        for task in TaskList().done:
+            f.write(task.get_task_summary() + "\n")

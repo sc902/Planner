@@ -6,6 +6,8 @@ top = tk.Tk()
 my_task_list = TaskList()
 #DO NOT TOUCH ANYTHING ABOVE THIS
 top.title("To-Do List")
+e = tk.Entry(top, highlightcolor = "blue")
+e.pack(side = tk.TOP)
 #1. Iterate over not_done
 for task in my_task_list.not_done:
     b = tk.Checkbutton(top, text = task.description, bg = "yellow")
@@ -18,6 +20,7 @@ for task in my_task_list.done:
     #Printing description
     var.set(task.description)
     label.pack()
+
 
 #DO NOT TOUCH ANYTHING BELOW THIS
 top.mainloop()
