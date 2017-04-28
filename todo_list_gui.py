@@ -14,7 +14,8 @@ for task in my_task_list.not_done:
     var.set(task.description)
     label.pack()
     b = tk.Checkbutton(top)
-    b.pack()
+    b.pack(side = tk.LEFT, anchor = tk.N)
+
 
 #1. Iterate over done
 for task in my_task_list.done:
